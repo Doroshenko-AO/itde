@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head><title>OrbitControls</title></head>
+    <body>
+        <script src="https://threejs.org/build/three.js"></script>
+        <script src="https://raw.githack.com/mrdoob/three.js/dev/examples/js/controls/OrbitControls.js"></script>
+        <a-scene>
+            <script>
+                function init() { 
+                    scene = new THREE.Scene(); 
+                    var WIDTH = window.innerWidth, HEIGHT = window.innerHeight; 
+                    
+                    renderer = new THREE.WebGLRenderer({antialias: true}); 
+                    renderer.setSize(WIDTH, HEIGHT); 
+                    document.body.appendChild(renderer.domElement); 
+                    
+                    camera  =  new  THREE.PerspectiveCamera(45, WIDTH / HEIGHT,  0.1, 20000); 
+                    camera.position.set(0, 6, 0); 
+                    scene.add(camera); 
+                    
+                    window.addEventListener('resize', function() { 
+                        var WIDTH = window.innerWidth, HEIGHT = window.innerHeight; 
+                        renderer.setSize(WIDTH, HEIGHT); 
+                        camera.aspect = WIDTH / HEIGHT; 
+                        camera.updateProjectMatrix(); 
+                    }); 
+                    
+                    renderer.setClearColor(0x333F47, 1); 
+                    
+                    var light = new THREE.PointLight(0xffffff); 
+                    light.position.set(-100, 200, 100); 
+                    scene.add(light); 
+                    
+                    var texture_1 = new THREE.TextureLoader().load('https://static.wikia.nocookie.net/james-camerons-avatar/images/e/ed/Bioluminescece.jpg/revision/latest?cb=20190807112557&path-prefix=ru');
+                    var texture_2 = new THREE.TextureLoader().load('https://telegraf.com.ua/static/storage/thumbs/1200x630/1/88/5826d363-67193e4b99da0bf4ff8c5d37270dd881.jpg?v=3428_1');
+
+                    var texture_3 = new THREE.TextureLoader().load('https://telegraf.com.ua/static/storage/thumbs/1200x630/1/88/5826d363-67193e4b99da0bf4ff8c5d37270dd881.jpg?v=3428_1');
+
+                    var texture_4 = new THREE.TextureLoader().load('https://kdpu.edu.ua/images/personal/481.jpg?rand=6823');
+
+                    var planet1 = new THREE.SphereGeometry(3);
+                    var planet1_material = new THREE.MeshLambertMaterial({map: texture_2});
+                    var planet1_mesh = new THREE.Mesh(planet1, planet1_material);
+                    planet1_mesh.position.set(10, -5, -6);
+                    scene.add(planet1_mesh)
+
+                    var planet2 = new THREE.SphereGeometry(3);
+                    var planet1_material = new THREE.MeshLambertMaterial({map: texture_3});
+                    var planet1_mesh = new THREE.Mesh(planet1, planet1_material);
+                    planet1_mesh.position.set(-10, -5, -6);
+                    scene.add(planet1_mesh)
+
+                    var planet3 = new THREE.SphereGeometry(3);
+                    var planet1_material = new THREE.MeshLambertMaterial({map: texture_1});
+                    var planet1_mesh = new THREE.Mesh(planet1, planet1_material);
+                    planet1_mesh.position.set(0, -5, -16);
+                    scene.add(planet1_mesh)
+    
+                    var cylgeometry = new THREE.CylinderGeometry(3, 3, 7, 7); 
+                    var cylmaterial = new THREE.MeshLambertMaterial({map: texture_4}); 
+                    var cylmesh = new THREE.Mesh(cylgeometry, cylmaterial); 
+                    cylmesh.position.set(0.9, -5, -6); 
+                    scene.add(cylmesh); 
+                    
+                    controls = new THREE.OrbitControls(camera,renderer.domElement); 
+
+                } 
+
+                 
+                
+                function animate() {  
+
+                    controls.update(); 
+                    renderer.render(scene, camera); 
+                    requestAnimationFrame(animate); 
+                }
+    
+                init(); 
+                animate();
+            </script>
+        </a-scene>
+    </body>
+</html>
