@@ -1,0 +1,63 @@
+<html>
+    <script src="https://threejs.org/build/three.js"></script>
+        <canvas id="Canvas"></canvas>
+        <script>
+            
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 0.1, 3000 );
+            
+            const renderer = new THREE.WebGLRenderer({canvas: document.getElementById('Canvas'), antialias: true});
+            renderer.setClearColor(0xCBEFFF);
+            renderer.setPixelRatio( window.devicePixelRatio )
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            document.body.appendChild( renderer.domElement );
+
+            var lightOne = new THREE.AmbientLight(0xffff, 0.5);
+            scene.add(lightOne);
+            var lightTwo = new THREE.PointLight(0xffff, 0.5);
+            scene.add(lightTwo);  
+
+            var spheregeometry=new THREE.SphereGeometry(2); 
+            var spherematerial=new THREE.LineBasicMaterial({ color: 0x888888,
+ }); 
+            var spheremesh=new THREE.Line(spheregeometry, spherematerial);
+            spheremesh.position.set(0, 6, 1); 
+            scene.add(spheremesh);  
+
+	    
+	    const geometry = new THREE.RingGeometry( 1, 5, 32 );
+	    const material = new THREE.MeshBasicMaterial( { color: 0xffff00, side: THREE.DoubleSide } );
+	    const mesh = new THREE.Mesh( geometry, material );
+	    mesh.position.set(0, -3, 0);
+	    mesh.rotation.set(67, 67, 27); 
+	    scene.add( mesh );
+
+
+            camera.position.z = 60;
+
+ 
+            var angle = 0;
+
+            function animate() {
+                
+                spheremesh.position.x = Math.cos(angle) * 7; 
+                spheremesh.position.y = Math.sin(angle) * 2; 
+
+		mesh.position.x = Math.cos(angle) * 7; 
+                mesh.position.y = Math.sin(angle) * 2; 
+		
+
+                angle += 0.01;
+                
+ 
+                requestAnimationFrame( animate );
+                renderer.render( scene, camera );
+            }
+
+            animate();
+        </script> 
+
+        
+    </body>
+
+</html>
